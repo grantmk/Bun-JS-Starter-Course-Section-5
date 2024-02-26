@@ -1,0 +1,31 @@
+<h1>HELLO world iAmDev</h1>
+<hr>
+
+<div style="text-align: center;">
+  <h2 id="title">Add a Pokemon to the database:</h2>
+  <form>
+    <label for="pname">Pokemon name:</label><br>
+    <input type="text" id="pname" name="pname"><br>
+    <label for="plevel">Level:</label><br>
+    <input type="number" id="plevel" name="plevel">
+    <input type="submit" value="Add to Pokedex">
+  </form>
+
+  <button onclick="setTitle()">Title</button>
+</div>
+
+<hr>
+<div style="text-align: center;">
+  <h2>Your Pokemon</h2>
+
+</div>
+
+<script>
+
+
+
+  function setTitle() {
+    let temp = "p";
+    document.querySelector('#title').innerHTML = temp
+  }
+</script>
