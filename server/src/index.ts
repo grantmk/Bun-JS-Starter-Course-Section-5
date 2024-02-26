@@ -1,4 +1,5 @@
-import { Elysia, t } from "elysia";
+import { Elysia, t, Context } from "elysia";
+import { authenticate } from "./middlewares/auth";
 
 const app = new Elysia()
   .get("/", () => Bun.file('./public/index.html'))
@@ -7,7 +8,12 @@ const app = new Elysia()
       id: t.Numeric()
     })
   })
-  .post('/create', (request) => request.body.name, {
+  .post('/create', (request) => {
+    console.log(request.body)
+    console.log(request.headers["x-access"])
+    return request.body
+  }, {
+    beforeHandle: (context) => authenticate(context),
     body: t.Object({
       name: t.String(),
       level: t.Numeric()
