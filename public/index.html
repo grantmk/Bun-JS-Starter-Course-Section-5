@@ -34,7 +34,7 @@
   }
 
   function addPokemon(pname, plevel) {
-    fetch("http://localhost:3000/create", {
+    fetch("http://localhost:3000/pokemon/create", {
       method: "POST",
       body: JSON.stringify({
         name: pname,
@@ -46,7 +46,10 @@
       }
     })
       .then((response) => response.json())
-      .then((json) => console.log(json));
+      .then((json) => {
+        console.log(json)
+        alert(json.message)
+      });
   }
 
   init()

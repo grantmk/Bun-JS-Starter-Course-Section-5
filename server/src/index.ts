@@ -1,24 +1,17 @@
-import { Elysia, t, Context } from "elysia";
-import { authenticate } from "./middlewares/auth";
+import { Elysia, t } from "elysia";
+import pokemonRoutes from './routes/pokemon';
 
 const app = new Elysia()
+  .onAfterHandle((context) => {
+    console.log(context.headers)
+  })
   .get("/", () => Bun.file('./public/index.html'))
   .get('/id/:id', ({ params: { id } }) => id + " is a " + typeof (id), {
     params: t.Object({
       id: t.Numeric()
     })
   })
-  .post('/create', (request) => {
-    console.log(request.body)
-    console.log(request.headers["x-access"])
-    return request.body
-  }, {
-    beforeHandle: (context) => authenticate(context),
-    body: t.Object({
-      name: t.String(),
-      level: t.Numeric()
-    })
-  })
+  .group('/pokemon', (app) => app.use(pokemonRoutes))
   .listen(3000);
 
 console.log(
